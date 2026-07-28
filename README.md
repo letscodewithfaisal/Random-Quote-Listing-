@@ -3,7 +3,7 @@
 A quote-browsing app built for the **FreeAPI Quotes Listing Application** brief (Web Dev Cohort 2026). It presents quotes from the [FreeAPI Quotes endpoint](https://api.freeapi.app/api/v1/public/quotes) as a library card catalog: a "pull a card" random quote feature, a searchable/filterable grid of index cards, and paginated loading straight from the API.
 
 ## Live demo
-_Add your hosted link here after deploying (see below)._
+
 
 ## Features
 - Fetches quotes directly from `GET https://api.freeapi.app/api/v1/public/quotes` (paginated, 20 per page)
@@ -30,6 +30,7 @@ npx serve .
 python3 -m http.server 8080
 ```
 Then visit the printed local address.
+http://localhost:3000/
 
 ## Deploy it (for the "live hosted project link" submission)
 
@@ -43,7 +44,7 @@ Then visit the printed local address.
 
 ### Option B — Vercel
 1. Install the CLI (`npm i -g vercel`) or use the Vercel dashboard's "Import Project."
-2. Run `vercel` inside the project folder and follow the prompts (no framework preset needed — choose "Other").
+2. Run `vercel` inside the project folder and follow the prompts 
 
 ## Push to GitHub
 ```bash
