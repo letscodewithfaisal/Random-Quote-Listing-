@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Commonplace — A Card Catalog of Quotes</title>
+<meta name="description" content="A library card-catalog styled browser for the FreeAPI Quotes collection." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="drawer-rail" aria-hidden="true"></div>
+
+  <header class="catalog-header">
+    <div class="header-inner">
+      <p class="eyebrow">FreeAPI Reading Room · Est. 2026</p>
+      <h1>The Commonplace</h1>
+      <p class="subtitle">A hand-pulled card catalog of quotations. Browse the drawer, search by call number, or pull a card at random.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Featured / random pull -->
+    <section class="featured" id="featured" aria-live="polite">
+      <div class="featured-card" id="featuredCard">
+        <span class="stamp" id="featuredStamp">CARD&nbsp;#000</span>
+        <blockquote id="featuredQuote">Loading the first card from the drawer&hellip;</blockquote>
+        <p class="featured-author" id="featuredAuthor"></p>
+      </div>
+      <button class="pull-btn" id="pullBtn">
+        <span class="pull-btn-label">Pull a card</span>
+        <span class="pull-btn-icon" aria-hidden="true">⇥</span>
+      </button>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls" aria-label="Search and filter the catalog">
+      <div class="search-row">
+        <label class="search-label" for="searchInput">Search call slip</label>
+        <input type="text" id="searchInput" placeholder="Search by author or a word from the quote…" autocomplete="off" />
+      </div>
+      <div class="tags-row" id="tagsRow" aria-label="Filter by subject label">
+        <span class="tags-row-label">Subject labels:</span>
+        <div class="tag-chips" id="tagChips"></div>
+      </div>
+      <p class="result-count" id="resultCount"></p>
+    </section>
+
+    <!-- Catalog grid -->
+    <section class="catalog" aria-label="Quote cards">
+      <div class="grid" id="grid"></div>
+      <p class="empty-state" id="emptyState" hidden>No cards match that search. Try a different word or clear the subject label.</p>
+    </section>
+
+    <div class="load-more-wrap">
+      <button class="load-more-btn" id="loadMoreBtn">Open the next drawer</button>
+      <p class="load-status" id="loadStatus"></p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Quotes served from the <a href="https://freeapi.app" target="_blank" rel="noopener">FreeAPI</a> public Quotes endpoint. Built for the Web Dev Cohort 2026 project brief.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
