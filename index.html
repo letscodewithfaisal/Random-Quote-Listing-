@@ -1,17 +1,22 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Commonplace — A Card Catalog of Quotes</title>
-<meta name="description" content="A library card-catalog styled browser for the FreeAPI Quotes collection." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <title>The Commonplace — A Card Catalog of Quotes</title>
 
-<link rel="stylesheet" href="style.css" />
+  <meta name="description" content="A vintage library card catalog of quotations. Discover, save, collect and share meaningful quotes." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <div class="drawer-rail" aria-hidden="true"></div>
@@ -19,56 +24,317 @@
   <header class="catalog-header">
     <div class="header-inner">
       <p class="eyebrow">FreeAPI Reading Room · Est. 2026</p>
+
       <h1>The Commonplace</h1>
-      <p class="subtitle">A hand-pulled card catalog of quotations. Browse the drawer, search by call number, or pull a card at random.</p>
+
+      <p class="subtitle">
+        A hand-pulled card catalog of quotations.
+        Browse the drawer, search by call number, or pull a card at random.
+      </p>
     </div>
   </header>
 
+  <!-- MAIN NAVIGATION -->
+
+  <nav class="main-nav" aria-label="Main navigation">
+    <button class="nav-btn active" id="catalogNav" type="button">
+      <span>⌂</span> Catalog
+    </button>
+
+    <button class="nav-btn" id="readingRoomNav" type="button">
+      <span>▤</span> Reading Room
+    </button>
+  </nav>
+
   <main>
 
-    <!-- Featured / random pull -->
-    <section class="featured" id="featured" aria-live="polite">
-      <div class="featured-card" id="featuredCard">
-        <span class="stamp" id="featuredStamp">CARD&nbsp;#000</span>
-        <blockquote id="featuredQuote">Loading the first card from the drawer&hellip;</blockquote>
-        <p class="featured-author" id="featuredAuthor"></p>
-      </div>
-      <button class="pull-btn" id="pullBtn">
-        <span class="pull-btn-label">Pull a card</span>
-        <span class="pull-btn-icon" aria-hidden="true">⇥</span>
-      </button>
-    </section>
+    <!-- ================= CATALOG VIEW ================= -->
 
-    <!-- Controls -->
-    <section class="controls" aria-label="Search and filter the catalog">
-      <div class="search-row">
-        <label class="search-label" for="searchInput">Search call slip</label>
-        <input type="text" id="searchInput" placeholder="Search by author or a word from the quote…" autocomplete="off" />
-      </div>
-      <div class="tags-row" id="tagsRow" aria-label="Filter by subject label">
-        <span class="tags-row-label">Subject labels:</span>
-        <div class="tag-chips" id="tagChips"></div>
-      </div>
-      <p class="result-count" id="resultCount"></p>
-    </section>
+    <div id="catalogView">
 
-    <!-- Catalog grid -->
-    <section class="catalog" aria-label="Quote cards">
-      <div class="grid" id="grid"></div>
-      <p class="empty-state" id="emptyState" hidden>No cards match that search. Try a different word or clear the subject label.</p>
-    </section>
+      <!-- FEATURED QUOTE -->
 
-    <div class="load-more-wrap">
-      <button class="load-more-btn" id="loadMoreBtn">Open the next drawer</button>
-      <p class="load-status" id="loadStatus"></p>
+      <section class="featured" id="featured" aria-live="polite">
+
+        <div class="featured-card" id="featuredCard">
+
+          <span class="stamp" id="featuredStamp">CARD #000</span>
+
+          <blockquote id="featuredQuote">
+            Loading the first card from the drawer...
+          </blockquote>
+
+          <p class="featured-author" id="featuredAuthor"></p>
+
+        </div>
+
+        <div class="featured-actions">
+
+          <button class="pull-btn" id="pullBtn" type="button">
+            <span class="pull-btn-label">Pull a card</span>
+            <span class="pull-btn-icon" aria-hidden="true">⇥</span>
+          </button>
+
+          <button class="action-btn" id="saveFeaturedBtn" type="button">
+            ♡ Save
+          </button>
+
+          <button class="action-btn" id="copyFeaturedBtn" type="button">
+            Copy Quote
+          </button>
+
+          <button class="action-btn" id="shareFeaturedBtn" type="button">
+            Share
+          </button>
+
+        </div>
+
+        <p class="action-status" id="featuredStatus" aria-live="polite"></p>
+
+      </section>
+
+      <!-- QUOTE OF THE DAY PREVIEW -->
+
+      <section class="daily-preview">
+        <div>
+          <p class="eyebrow">A little wisdom for today</p>
+          <h2>Quote of the Day</h2>
+          <blockquote id="dailyPreviewQuote">
+            Preparing today's quotation...
+          </blockquote>
+          <p id="dailyPreviewAuthor"></p>
+        </div>
+
+        <button class="text-btn" id="dailyRoomBtn" type="button">
+          Visit Reading Room →
+        </button>
+      </section>
+
+      <!-- SEARCH AND FILTER -->
+
+      <section class="controls" aria-label="Search and filter the catalog">
+
+        <div class="search-row">
+
+          <label class="search-label" for="searchInput">
+            Search call slip
+          </label>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by author or a word from the quote..."
+            autocomplete="off"
+          />
+
+        </div>
+
+        <div class="tags-row">
+
+          <span class="tags-row-label">Subject labels:</span>
+
+          <div class="tag-chips" id="tagChips"></div>
+
+        </div>
+
+        <p class="result-count" id="resultCount"></p>
+
+      </section>
+
+      <!-- CATALOG GRID -->
+
+      <section class="catalog" aria-label="Quote cards">
+
+        <div class="grid" id="grid"></div>
+
+        <p class="empty-state" id="emptyState" hidden>
+          No cards match that search. Try a different word or clear the subject label.
+        </p>
+
+      </section>
+
+      <!-- LOAD MORE -->
+
+      <div class="load-more-wrap">
+
+        <button class="load-more-btn" id="loadMoreBtn" type="button">
+          Open the next drawer
+        </button>
+
+        <p class="load-status" id="loadStatus" aria-live="polite"></p>
+
+      </div>
+
     </div>
+
+    <!-- ================= READING ROOM VIEW ================= -->
+
+    <section id="readingRoomView" hidden>
+
+      <div class="room-heading">
+        <p class="eyebrow">Your personal archive · Est. 2026</p>
+
+        <h2>My Reading Room</h2>
+
+        <p>
+          A quiet corner for the words worth keeping.
+          Your collection, your discoveries, your history.
+        </p>
+
+        <button class="text-btn" id="backToCatalogBtn" type="button">
+          ← Back to Catalog
+        </button>
+      </div>
+
+      <!-- STATISTICS -->
+
+      <section class="stats-section">
+
+        <p class="section-label">YOUR READING RECORD</p>
+
+        <div class="stats-grid">
+
+          <article class="stat-card">
+            <span class="stat-number" id="statExplored">0</span>
+            <span class="stat-label">Cards explored</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-number" id="statSaved">0</span>
+            <span class="stat-label">Saved quotes</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-number" id="statAuthors">0</span>
+            <span class="stat-label">Authors discovered</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-number" id="statHistory">0</span>
+            <span class="stat-label">Reading history</span>
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- QUOTE OF THE DAY -->
+
+      <section class="room-section">
+
+        <div class="section-heading">
+          <div>
+            <p class="section-label">TODAY'S SELECTION</p>
+            <h3>Quote of the Day</h3>
+          </div>
+
+          <span class="daily-badge">DAILY CARD</span>
+        </div>
+
+        <article class="daily-card">
+
+          <span class="stamp">TODAY'S CARD</span>
+
+          <blockquote id="dailyQuote">
+            Loading today's quotation...
+          </blockquote>
+
+          <p class="featured-author" id="dailyAuthor"></p>
+
+          <div class="card-actions">
+            <button class="action-btn" id="copyDailyBtn" type="button">
+              Copy Quote
+            </button>
+
+            <button class="action-btn" id="shareDailyBtn" type="button">
+              Share Quote
+            </button>
+
+            <button class="action-btn" id="saveDailyBtn" type="button">
+              ♡ Save
+            </button>
+          </div>
+
+          <p class="action-status" id="dailyStatus" aria-live="polite"></p>
+
+        </article>
+
+      </section>
+
+      <!-- MY COLLECTION -->
+
+      <section class="room-section">
+
+        <div class="section-heading">
+          <div>
+            <p class="section-label">YOUR FAVOURITES</p>
+            <h3>My Collection</h3>
+          </div>
+
+          <span class="collection-count" id="collectionCount">
+            0 CARDS
+          </span>
+        </div>
+
+        <div class="grid" id="collectionGrid"></div>
+
+        <p class="empty-state" id="collectionEmpty">
+          Your collection is waiting for its first card.
+          Save a quotation you love to see it here.
+        </p>
+
+      </section>
+
+      <!-- READING HISTORY -->
+
+      <section class="room-section">
+
+        <div class="section-heading">
+          <div>
+            <p class="section-label">YOUR RECENT DISCOVERIES</p>
+            <h3>Reading History</h3>
+          </div>
+
+          <button class="text-btn danger-text" id="clearHistoryBtn" type="button">
+            Clear history
+          </button>
+        </div>
+
+        <div class="history-list" id="historyList"></div>
+
+        <p class="empty-state" id="historyEmpty">
+          No reading history yet. Pull your first card to begin.
+        </p>
+
+      </section>
+
+      <div class="room-footer">
+        <p>Every card has a story. Keep the ones that stay with you.</p>
+      </div>
+
+    </section>
 
   </main>
 
+  <!-- FOOTER -->
+
   <footer class="site-footer">
-    <p>Quotes served from the <a href="https://freeapi.app" target="_blank" rel="noopener">FreeAPI</a> public Quotes endpoint. Built for the Web Dev Cohort 2026 project brief.</p>
+
+    <p>
+      Quotes served from the
+      <a href="https://freeapi.app" target="_blank" rel="noopener">
+        FreeAPI
+      </a>
+      public Quotes endpoint.
+    </p>
+
+    <p>Built for the Web Dev Cohort 2026 project brief.</p>
+
+    <p class="footer-note">The Commonplace · A little library of thoughts.</p>
+
   </footer>
 
   <script src="script.js"></script>
+
 </body>
 </html>
